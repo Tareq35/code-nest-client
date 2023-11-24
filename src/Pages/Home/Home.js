@@ -24,7 +24,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-full h-20 md:h-32 bg-yellow-300 flex text-xs sm:text-sm md:text-base items-center justify-center gap-3 p-5 tracking-widest font-semibold uppercase font-sans'>
+            <div className='w-full h-20 md:h-40 bg-yellow-300 flex text-xs sm:text-sm md:text-base items-center justify-center gap-3 p-5 tracking-widest font-semibold uppercase font-sans'>
                 <span>HTML</span>
                 <BsSlashLg />
                 <span>CSS</span>
