@@ -20,7 +20,7 @@ const Header = () => {
                         <li><Link>FAQ</Link></li>
                     </ul>
                 </div>
-                <Link to="/" className="font-bold text-xl md:text-3xl gap-0 flex items-center">
+                <Link to="/" className="font-bold text-l md:text-xl lg:text-3xl gap-0 flex items-center">
                     <img className='h-6 md:h-12' src={logo} alt="" />
                     Code<span className='text-green-600'>Nest</span>
                 </Link>
@@ -57,12 +57,7 @@ const Header = () => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-lime-50 font-semibold rounded-box w-52">
-                        <li>
-                            <Link className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </Link>
-                        </li>
+                        <li><Link>Profile</Link></li>
                         <li><Link>Settings</Link></li>
                         <li><Link>Logout</Link></li>
                     </ul>
