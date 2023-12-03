@@ -4,6 +4,7 @@ import Button from '../../../Components/Button';
 
 const CourseItem = ({ course }) => {
     const { title, description, img, price, id } = course;
+    // console.log(id)
 
     return (
         <div className="card bg-base-100 shadow-xl">
@@ -13,7 +14,7 @@ const CourseItem = ({ course }) => {
                 <p className='text-xs md:text-base lg:text-lg line-clamp-3 mb-3'>{description}</p>
                 <div className="card-actions justify-between items-center">
                     <h4 className='text-base md:text-lg lg:text-xl font-semibold'>${price}</h4>
-                    <Link><Button>Details</Button></Link>
+                    <Link to={`/coursesDetails/${id}`}><Button name='Details' /></Link>
                 </div>
             </div>
         </div>
