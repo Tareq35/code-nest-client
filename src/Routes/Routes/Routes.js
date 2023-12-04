@@ -7,6 +7,8 @@ import Faq from "../../Pages/Faq/Faq/Faq";
 import Category from "../../Pages/Courses/Category/Category";
 import CourseDetails from "../../Pages/Courses/CourseDetails/CourseDetails";
 import CheckOut from "../../Pages/CheckOut/CheckOut";
+import Login from "../../Pages/Login/Login";
+import Register from "../../Pages/Register/Register";
 
 export const routes = createBrowserRouter([
     {
@@ -34,7 +36,16 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/checkout/:id',
-                element: <CheckOut></CheckOut>
+                element: <CheckOut></CheckOut>,
+                loader: ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
+            },
+            {
+                path: '/login',
+                element: <Login></Login>
+            },
+            {
+                path: '/register',
+                element: <Register></Register>
             },
             {
                 path: '/blogs',

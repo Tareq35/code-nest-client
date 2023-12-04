@@ -11,7 +11,7 @@ const CourseDetails = () => {
                 <figure className='lg:w-[40%] lg:h-96'><img className='' src={img} alt="Album" /></figure>
                 <div className="card-body lg:w-[60%]">
                     <div className='flex justify-between items-center mb-5'>
-                        <h2 className="card-title text-xl md:text-3xl lg:text-5xl">{title}</h2>
+                        <h2 className="card-title text-xl md:text-3xl lg:text-4xl">{title}</h2>
                         <Button name='Download PDF' />
                     </div>
                     <p>{description}</p>

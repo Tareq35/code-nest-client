@@ -47,8 +47,8 @@ const Header = () => {
 
                 </label>
 
-                <Button name={'Login'} />
-                <Button name={'Register'} />
+                <Link to="/login"><Button name={'Login'} /></Link>
+                <Link to="/register"><Button name={'Register'} /></Link>
 
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
