@@ -35,11 +35,11 @@ const Register = () => {
                             </label>
                             <input type="password" placeholder="password" className="input input-bordered" required />
                             <label className="label">
-                                <p>Already Registered? <Link to='/register' className="text-green-600 link link-hover">Login</Link></p>
+                                <p>Already Registered? <Link to='/login' className="text-green-600 link link-hover">Login</Link></p>
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <Button name='Login' />
+                            <Button name='Register' />
                             <span className='text-center mt-3 mb-5'>Or</span>
                             <hr />
                         </div>

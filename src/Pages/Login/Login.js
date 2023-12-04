@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../Components/Button';
+import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
+    const { providerLogin } = useContext(AuthContext);
+
+    const googleProvider = new GoogleAuthProvider()
+
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.usr;
+                console.log(user);
+            })
+            .catch(error => console.error(error))
+    }
+
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col w-1/2">
@@ -32,7 +47,7 @@ const Login = () => {
                             <hr />
                         </div>
                         <div className="form-control mt-6">
-                            <Button name='Login with Google' />
+                            <Button onClick={handleGoogleSignIn} name='Login with Google' />
                         </div>
                         <div className="form-control mt-6">
                             <Button name='Login with Github' />
