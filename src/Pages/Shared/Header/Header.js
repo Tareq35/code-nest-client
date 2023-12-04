@@ -7,7 +7,14 @@ import Button from '../../../Components/Button';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Header = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+
     return (
         <div className="navbar bg-lime-100">
             <div className="navbar-start">
@@ -50,15 +57,15 @@ const Header = () => {
                 </label>
                 <div className='flex gap-1 md:gap-2 items-center'>
                     {
-                        user?.photoURL ?
+                        user?.uid ?
                             <div className="dropdown dropdown-end">
                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                     <div className="text-2xl md:text-3xl">
                                         {
-                                            user ?
-                                                <img className='w-8 rounded-full' title={user.displayName} src={user.photoURL} alt='userImg'></img>
+                                            user?.photoURL ?
+                                                <img className='w-8 rounded-full' title={user?.displayName} src={user?.photoURL} alt='userImg'></img>
                                                 :
-                                                <BsPersonCircle title={user.displayName} />
+                                                <BsPersonCircle title={user?.displayName} />
                                         }
                                     </div>
                                 </label>
@@ -70,7 +77,7 @@ const Header = () => {
                                     <li className='pl-3 text-xs'>
                                         {user?.email}
                                     </li>
-                                    <li className='mt-2'><Link>Logout</Link></li>
+                                    <li className='mt-2'><Link onClick={handleLogOut}>Logout</Link></li>
                                 </ul>
                             </div>
                             :

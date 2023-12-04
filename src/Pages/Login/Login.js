@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../Components/Button';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { FaGithub, FaGoogle } from 'react-icons/fa6';
 
 const Login = () => {
     const { providerLogin } = useContext(AuthContext);
@@ -12,7 +13,7 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         providerLogin(googleProvider)
             .then(result => {
-                const user = result.usr;
+                const user = result.user;
                 console.log(user);
             })
             .catch(error => console.error(error))
@@ -30,27 +31,27 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" placeholder="email" className="input input-bordered" required />
+                            <input type="email" name='email' placeholder="email" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" placeholder="password" className="input input-bordered" required />
+                            <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                             <label className="label">
                                 <p>Haven't registered yet? <Link to='/register' className="text-green-600 link link-hover">Register</Link></p>
                             </label>
                         </div>
-                        <div className="form-control mt-6">
+                        <div className="form-control">
                             <Button name='Login' />
-                            <span className='text-center mt-3 mb-5'>Or</span>
+                            <span className='text-center mt-3 mb-3'>Or</span>
                             <hr />
                         </div>
-                        <div className="form-control mt-6">
-                            <Button onClick={handleGoogleSignIn} name='Login with Google' />
+                        <div className="form-control mt-4">
+                            <Button onClick={handleGoogleSignIn} name='Login with Google' icon={<FaGoogle className='w-5 h-5' />} />
                         </div>
-                        <div className="form-control mt-6">
-                            <Button name='Login with Github' />
+                        <div className="form-control mt-2">
+                            <Button name='Login with Github' icon={<FaGithub className='w-5 h-5' />} />
                         </div>
                     </form>
                 </div>
