@@ -1,13 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '../../Components/Button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { FaGoogle } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
+import toast from 'react-hot-toast';
 
 const Register = () => {
+    const { createUser, providerLogin, updateUserProfile } = useContext(AuthContext);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const { createUser } = useContext(AuthContext);
+    const location = useLocation();
+
+
+    const googleProvider = new GoogleAuthProvider()
+    const githubProvider = new GithubAuthProvider();
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -17,14 +28,55 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(name, photoURL, email, password);
+        // console.log(name, photoURL, email, password);
 
         createUser(email, password)
             .then(result => {
                 const user = result.user
                 console.log(user);
+                setError('');
+                form.reset();
+                handleUpdateUserProfile(name, photoURL);
+                navigate('/')
+                toast.success('Your account has been created successfully')
+            })
+            .catch(error => {
+                console.error(error)
+                setError(error.message);
+            })
+    }
+
+    const handleUpdateUserProfile = (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('Google login successful')
+                navigate(from, { replace: true })
             })
             .catch(error => console.error(error))
+    }
+
+    const handleGithubSignIn = () => {
+        providerLogin(githubProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('Github login successful')
+                navigate(from, { replace: true })
+
+            })
+            .catch(error => console.error(error));
     }
 
     return (
@@ -37,9 +89,9 @@ const Register = () => {
                     <form onSubmit={handleSubmit} className="card-body p-2 md:p-8 ">
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Name <span className='text-red-500 font-bold'>*</span> </span>
+                                <span className="label-text">Full name <span className='text-red-500 font-bold'>*</span> </span>
                             </label>
-                            <input type="text" name='name' placeholder="Your name" className="input input-bordered" required />
+                            <input type="text" name='name' placeholder="Your full name" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -61,6 +113,7 @@ const Register = () => {
                             <label className="label">
                                 <p>Already Registered? <Link to='/login' className="text-green-600 link link-hover">Login</Link></p>
                             </label>
+                            <p className='text-red-500'>{error}</p>
                         </div>
                         <div className="form-control">
                             <Button name='Register' />
@@ -69,10 +122,10 @@ const Register = () => {
                             <hr />
                         </div>
                         <div className="form-control mt-4">
-                            <Button name='Register with Google' icon={<FaGoogle className='w-5 h-5' />} />
+                            <Button onClick={handleGoogleSignIn} name='Register with Google' icon={<FaGoogle className='w-5 h-5' />} />
                         </div>
                         <div className="form-control mt-2">
-                            <Button name='Register with Github' icon={<FaGithub className='w-5 h-5' />} />
+                            <Button onClick={handleGithubSignIn} name='Register with Github' icon={<FaGithub className='w-5 h-5' />} />
                         </div>
                     </form>
                 </div>

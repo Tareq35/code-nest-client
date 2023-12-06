@@ -21,8 +21,7 @@ const Home = () => {
                         <h2 className='text-lime-100 text-2xl md:text-5xl font-bold mb-2 md:mb-3'>Welcome To Code<span className='text-green-600'>Nest</span></h2>
                         <h4 className='text-white text-md md:text-xl font-semibold mb-2'>The best learning platform like you've never experienced before</h4>
                         <p className='text-white text-sm md:text-base mb-4 md:mb-6 lg:mb-10'>Empower yourself with world-class courses from educators and institutions in a practical and social learning environment.Expert-led courses across a variety of online class topics for every step of your career.</p>
-                        {/* <Link to="/courses"><Button>Visit Courses</Button></Link> */}
-                        <Link to="/courses"><Button name='Visit Courses'  /></Link>
+                        <Link className='flex justify-center' to="/courses"><Button name='Visit Courses'  /></Link>
                     </div>
                 </div>
             </div>
