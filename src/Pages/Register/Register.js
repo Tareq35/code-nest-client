@@ -8,10 +8,10 @@ import { FaGithub } from "react-icons/fa6";
 import toast from 'react-hot-toast';
 
 const Register = () => {
-    const { createUser, providerLogin, updateUserProfile } = useContext(AuthContext);
+    const { createUser, setUser, providerLogin, updateUserProfile } = useContext(AuthContext);
     const [error, setError] = useState('');
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
     const location = useLocation();
 
 
@@ -30,14 +30,26 @@ const Register = () => {
 
         // console.log(name, photoURL, email, password);
 
+        const handleUpdateUserProfile = (name, photoURL) => {
+            const profile = {
+                displayName: name,
+                photoURL: photoURL
+            }
+            updateUserProfile(profile)
+                .then(() => { })
+                .catch(error => console.error(error))
+        }
+
         createUser(email, password)
             .then(result => {
                 const user = result.user
                 console.log(user);
                 setError('');
-                form.reset();
+                setUser({ ...user, email, displayName: name, photoURL });
                 handleUpdateUserProfile(name, photoURL);
+                form.reset();
                 navigate('/')
+                // window.location.reload()
                 toast.success('Your account has been created successfully')
             })
             .catch(error => {
@@ -46,15 +58,6 @@ const Register = () => {
             })
     }
 
-    const handleUpdateUserProfile = (name, photoURL) => {
-        const profile = {
-            displayName: name,
-            photoURL: photoURL
-        }
-        updateUserProfile(profile)
-            .then(() => { })
-            .catch(error => console.error(error))
-    }
 
     const handleGoogleSignIn = () => {
         providerLogin(googleProvider)

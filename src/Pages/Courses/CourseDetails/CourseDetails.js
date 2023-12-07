@@ -1,18 +1,22 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import Button from '../../../Components/Button';
+import { usePDF } from 'react-to-pdf';
 
 const CourseDetails = () => {
     const course = useLoaderData();
     const { title, description, img, price, id } = course;
+
+    const { toPDF, targetRef } = usePDF({ filename: `${title}_details` })
+
     return (
-        <div className='w-[90%] md:w-[80%] lg:w-[60%] mx-auto my-10'>
+        <div ref={targetRef} className='w-[90%] md:w-[80%] lg:w-[60%] mx-auto my-10'>
             <div className="card lg:card-side bg-base-100 shadow-2xl mb-5">
                 <figure className='lg:w-[40%] lg:h-96'><img className='' src={img} alt="Album" /></figure>
                 <div className="card-body lg:w-[60%]">
                     <div className='flex justify-between items-center mb-5'>
                         <h2 className="card-title text-xl md:text-3xl lg:text-4xl">{title}</h2>
-                        <Button name='Download PDF' />
+                        <Button onClick={() => toPDF()} name='Download PDF' />
                     </div>
                     <p>{description}</p>
                     <div className="card-actions justify-between items-center">
